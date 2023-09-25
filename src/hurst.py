@@ -14,13 +14,9 @@ def hurst_ernie_chan(p, lag_range=None):
 
     variancetau = []
     tau = []
-    
-    # Create the range of lag values
-    if lag_range == None:
-        lags = [2]
-    else:
-        lags = range(2, lag_range) # lag_range < len(ts)
 
+    # Create the range of lag values
+    lags = [2] if lag_range is None else range(2, lag_range)
     for lag in lags: 
 
         #  Write the different lags into a vector to compute a set of tau or lags
@@ -37,6 +33,4 @@ def hurst_ernie_chan(p, lag_range=None):
     # plot the log of those variance against the log of tau and get the slope
     m = polyfit(log10(tau),log10(variancetau),1)
 
-    hurst = m[0] / 2
-
-    return hurst
+    return m[0] / 2
